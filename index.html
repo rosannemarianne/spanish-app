@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viviendo & Leren | NL ➔ ES Mastery</title>
+    <meta name="description" content="A premium language mastery app for Dutch to Spanish. Focus on business, grammar and rapid recall.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+        <header>
+            <p>Dutch ➔ Spanish Practice</p>
+        </header>
+
+        <main>
+            <!-- Start Screen -->
+            <section id="start-screen" class="view">
+                <div class="glass-card">
+                    <h2 style="margin-bottom: 0.5rem; font-size: 1.5rem;">Ready to start?</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.9375rem;">Master Dutch to Spanish recall.</p>
+                    
+                    <div class="category-section">
+                        <label style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; display: block;">Select Tense</label>
+                        <div class="category-row">
+                            <button class="cat-btn tense-btn active" data-tense="all">All Tenses</button>
+                            <button class="cat-btn tense-btn" data-tense="vocab">Vocabulary</button>
+                            <button class="cat-btn tense-btn" data-tense="present">Present</button>
+                            <button class="cat-btn tense-btn" data-tense="preterite">Preterite</button>
+                            <button class="cat-btn tense-btn" data-tense="imperfect">Imperfect</button>
+                            <button class="cat-btn tense-btn" data-tense="future">Future</button>
+                            <button class="cat-btn tense-btn" data-tense="conditional">Conditional</button>
+                        </div>
+                    </div>
+
+                    <button id="btn-start" class="btn btn-primary" style="margin-top: 2rem; width: 100%;">
+                        Start Session (10 Random Items)
+                    </button>
+                </div>
+            </section>
+
+            <!-- Practice Screen -->
+            <section id="practice-screen" class="view hidden">
+                <div class="progress-container">
+                    <div class="progress-labels">
+                        <span id="card-count">Question 1 / 10</span>
+                        <span id="session-status">Standard Session</span>
+                    </div>
+                    <div class="progress-track">
+                        <div id="progress-bar" class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+                
+                <div class="practice-layout">
+                    <div class="quiz-main">
+                        <div class="quiz-stage">
+                            <div class="flashcard" id="flashcard">
+                                <div class="card-face card-front">
+                                    <span class="label-tag">QUESTION: NL</span>
+                                    <div class="word-display" id="word-front">...</div>
+                                    <p style="font-size: 0.8rem; color: var(--text-secondary); opacity: 0.8; margin-top: 10px;">Tap to peek</p>
+                                </div>
+                                <div class="card-face card-back">
+                                    <span class="label-tag">ANSWER: ES</span>
+                                    <div class="word-display" id="word-back">...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-section">
+                            <input type="text" id="quiz-input" placeholder="Type Spanish answer..." autocomplete="off" spellcheck="false">
+                            <div id="feedback" class="feedback hidden"></div>
+                        </div>
+
+                        <div class="controls-row">
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <button id="btn-skip" class="btn btn-ghost">Skip Word</button>
+                                <button id="btn-show-hint" class="btn btn-ghost">Show Answer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conjugation Sidebar -->
+                    <aside id="conjugation-sidebar" class="sidebar hidden">
+                        <div class="sidebar-header">
+                            <span id="sidebar-tense" class="tense-label">Future Tense</span>
+                            <h3 id="sidebar-meaning" style="font-size: 1rem; margin-top: 0.25rem;">To Go (Ir)</h3>
+                        </div>
+                        <div id="conjugation-table" class="conjugation-table">
+                            <!-- Populated via JS -->
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <!-- Results Screen -->
+            <section id="result-screen" class="view hidden">
+                <div class="glass-card" style="text-align: center;">
+                    <h2 style="font-size: 1.75rem;">Session Complete!</h2>
+                    <div class="score-circle">
+                        <span id="score-display">0%</span>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">You've mastered all items in this set.</p>
+                    <div style="display:flex; flex-direction: column; gap: 1rem;">
+                        <button id="btn-restart" class="btn btn-primary">Try Again</button>
+                        <button id="btn-home" class="btn btn-ghost">Back to Home</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2024 Viviendo & Leren | Practice NL ➔ ES</p>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
