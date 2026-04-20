@@ -121,9 +121,66 @@ header p {
 .progress-labels {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 0.75rem;
     color: var(--text-secondary);
     font-weight: 600;
+}
+
+.voice-toggle-area {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.voice-status-text {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.voice-status-text.listening {
+    color: var(--danger);
+    animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.btn-voice-toggle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.btn-voice-toggle:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.12);
+}
+
+.btn-voice-toggle.voice-active {
+    border-color: var(--danger);
+    color: var(--danger);
+    background: rgba(239, 68, 68, 0.12);
+    animation: pulse-voice 1.8s infinite;
+}
+
+@keyframes pulse-voice {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.35); }
+    50% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
 }
 
 /* Flashcard Animation */
@@ -356,9 +413,179 @@ footer {
     color: var(--text-secondary);
 }
 
+/* Voice Mode Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Mic Button */
+.mic-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 12px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mic-btn:hover {
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.mic-btn.active {
+    color: var(--danger);
+    background: rgba(239, 68, 68, 0.1);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.1); opacity: 0.7; }
+    100% { transform: translateY(-50%) scale(1); }
+}
+
 /* Mobile Tweak */
 @media (max-width: 480px) {
     #app-container { padding: 1rem; }
     .word-display { font-size: 2rem; }
     .quiz-stage { height: 240px; }
+}
+
+/* ─── Tense Intro Screen ─────────────────────────── */
+.intro-card {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.intro-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(6,182,212,0.2));
+    border: 1px solid rgba(99,102,241,0.4);
+    color: var(--accent);
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+}
+
+.intro-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+}
+
+.intro-explanation {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.intro-section-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: 0.65rem;
+}
+
+.intro-use-cases {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+    padding: 0;
+}
+
+.intro-use-cases li {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-left: 3px solid var(--primary);
+    border-radius: 10px;
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+.intro-use-cases li em {
+    color: var(--accent);
+    font-style: italic;
+}
+
+.intro-tip-box {
+    background: rgba(99,102,241,0.1);
+    border: 1px solid rgba(99,102,241,0.3);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: #a5b4fc;
+    line-height: 1.6;
+}
+
+.intro-tip-box strong {
+    color: var(--text-primary);
 }
